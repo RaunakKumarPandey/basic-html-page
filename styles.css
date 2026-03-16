@@ -1,0 +1,13 @@
+@media (max-width: 768px) {
+    body {
+        background-color: lightyellow;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+
+    p {
+        font-size: 16px;
+    }
+}
