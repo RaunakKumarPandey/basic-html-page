@@ -1,29 +1,43 @@
-function loadPosts() {
+document.getElementById("myForm").addEventListener("submit", function(event) {
 
-fetch("https://jsonplaceholder.typicode.com/posts")
+    event.preventDefault(); // stop form submission
 
-.then(response => response.json())
+    let isValid = true;
 
-.then(data => {
+    // Get values
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value.trim();
 
-const postList = document.getElementById("postList");
+    // Clear old errors
+    document.getElementById("nameError").textContent = "";
+    document.getElementById("emailError").textContent = "";
+    document.getElementById("passwordError").textContent = "";
 
-postList.innerHTML = "";
+    // Name validation
+    if (name === "") {
+        document.getElementById("nameError").textContent = "Name is required";
+        isValid = false;
+    }
 
-data.slice(0,5).forEach(post => {
+    // Email validation
+    if (email === "") {
+        document.getElementById("emailError").textContent = "Email is required";
+        isValid = false;
+    } else if (!email.includes("@")) {
+        document.getElementById("emailError").textContent = "Enter valid email";
+        isValid = false;
+    }
 
-const li = document.createElement("li");
+    // Password validation
+    if (password.length < 6) {
+        document.getElementById("passwordError").textContent = "Password must be at least 6 characters";
+        isValid = false;
+    }
 
-li.textContent = post.title;
-
-postList.appendChild(li);
+    // Success
+    if (isValid) {
+        alert("Form submitted successfully!");
+    }
 
 });
-
-})
-
-.catch(error => {
-console.log("Error fetching data:", error);
-});
-
-}
